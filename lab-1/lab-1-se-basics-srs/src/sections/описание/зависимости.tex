@@ -1,0 +1,37 @@
+Этот документ описывает требования к системе из продположения, что окружение, в котором будет реализован продукт, обладает следующими характеристиками.
+\begin{itemize}
+    \item Гости будут посещать веб-портал с помощью мобильного устройства и с помощью настольного компьютера. Таким образом, ширина экрана на устройствах должна быть не менее 360 пикселей.
+    \item Веб-браузер пользователей веб-портала должен разрешить использовать JavaScript.
+    \item Веб-браузер пользователей веб-портала должен быть не старше определенных версий:\begin{itemize}
+        \item Chrome 84+,
+        \item Edge 84+,
+        \item Firefox 79+,
+        \item Opera 70+,
+        \item Yandex Browser 20.7+,
+        \item Safari 14+,
+        \item Safari mobile 14+,
+        \item Samsung browser 13+.
+    \end{itemize} 
+    \item Связь с сервисом осуществляется по сети Интренет со скоростью соединения не менее 250 Кбит./с из рассчета наличия у пользователей мобильных устройств поддерживающих связь третьего (3G) и моложе поколения.
+    \item Серверная часть системы должна функционировать на отдельно выделенном компьютере в виртуальном окружении в виде виртуальной машины или контейнера под управлением UNIX-подобной операционной системы.
+    \item Для хранения данных системы должна иметься отдельно выделенная СУБД.
+    \item Система не должна погружаться в спящий режим или каким либо образом приостанавливать свою готовность к выполнению запросов во время отсутствия взаимодействия с пользователями.
+    % \item \textit{И Т.Д...}
+\end{itemize}
+
+% \textit{[ЭТОТ ПУНКТ СТОИТ НАПИСАТЬ ПОСЛЕ ПОСТАНОВКИ ДРУГИХ ТРЕБОВАНИЙ.\\
+%  ЗДЕСЬ ТРЕБУЕТСЯ ОПИСАТЬ ХАРАКТЕРИСТИКИ ОКРУЖЕНИЯ СИСТЕМЫ, КОТОРЫЕ ОЖИДАЕМО ВЕРНЫ, НА ЧЕМ И СТРОИТСЯ ДАННОЕ SRS. ЕСЛИ ОНИ НЕ ПРАВДИВЫ, ТО НУЖНО МЕНЯТЬ SRS]}
+
+%%%%
+%This subsection of the SRS should list each of the factors
+% that affect the requirements stated in the SRS. 
+%
+% These factors are not design constraints оп the software 
+% but are, rather, аnу changes to them that сап affect
+% the requirements in the SRS. 
+%
+% For example, ап assumption тау be that а specifc operating system will be
+% available оп the hardware designated for the software product. 
+%
+% If, in fact, the operating system is not available, 
+% the SRS would then have to change accordingly.

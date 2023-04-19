@@ -1,0 +1,44 @@
+
+    
+Эта секция описывает все главные возможности, которые должны быть реализованы в системе для обработки входных данных и производства выходных данных. Здесь определены функциональные требования к системе, сгрупперованные по принадлежности к классу пользователей, и каждой дан уникальный идентификатор, чтобы ссылаться к нему в процессе разработки системы. Так же для функционального требования может быть указано одно или несколько дргих функциональных требований, от которых оно зависит. 
+
+Так же для удобства восприятия атрибутов требований они представлены в сводной таблице \ref{tab:fr-summary}.
+
+\subsection{Администратор}
+\input{src/sections/требования/функциональность/администратор/index}
+
+\subsection{Редактор}
+\input{src/sections/требования/функциональность/редактор/index}
+
+\subsection{Гость}
+\input{src/sections/требования/функциональность/гость/index}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\paperwidth]{res/functional-requirements.png}
+    \caption{Диаграмма способов использования}
+    \label{fig:use-case-diagram}
+\end{figure}
+
+\input{src/sections/требования/функциональность/сводная-таблица}
+
+%%%%
+%\textit{Functional requirements should define the fundamental actions that must take place in the software in
+%accepting and processing the inputs and in processing and generating the These are generally listed
+%as “shall” statements starting with Пе system shall...\\
+%These include\\
+%а) Validity checks оп the inputs\\
+%Ь) Exact sequence of operations\\
+%с) Responses to abnormal situations, including\\
+%   1) Overfow\\
+%   2) Communication facilities\\
+%   З) Error handling and recovery\\
+%d) Effect of parameters\\
+%е) Relationship of outputs to inputs, inc1uding\\
+%   1) Input/Output sequences\\
+%   2) Formulas for input to output conversion
+%\\
+%It тау be appropriate to partition the functional requirements into subfunctions от subprocesses. This does
+%not imply that the software design will also be partitioned that way.
+%}

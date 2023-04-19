@@ -12,6 +12,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1,T2A]{fontenc}
 \usepackage[russian]{babel}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtext}
+\usepackage{float}
+\usepackage{svg}
 %<<<<<
 
 \hypersetup{
@@ -24,10 +28,32 @@
     linkcolor=blue,  % color of internal links
     citecolor=black, % color of links to bibliography
     filecolor=black, % color of file links
-    urlcolor=purple, % color of external links
+    % urlcolor=purple, % color of external links
     linktoc=page     % only page is linked
 }%
 
 % \def\myversion{1.0 }
 
 \usepackage{hyperref}
+\usepackage{indentfirst}
+
+\newcommand{\FunctionalReq}[6]{
+    \item {\Large <<#1>>}\\[1mm]
+    \textbf{ID:} \texttt{#2}.\\[1mm]
+    \textbf{Приоритет:} \textit{#3}.\\[1mm]
+    \textbf{Описание}. #4\\[1mm]
+    \textbf{Оценка}. #5\\[1mm]
+    \textbf{Зависимости}. \texttt{#6}.\\[1mm]
+}
+
+\newcommand{\QualityReq}[3]{
+    \item {\Large <<#1>>}\\[1mm]
+    \textbf{ID:} \texttt{#2}.\\[1mm]
+    \textbf{Описание}. #3\\[1mm]
+}
+
+\newcommand{\Scenario}[2]{
+    \textbf{Сценарий использования} <<#1>>:
+    #2% 
+    \vspace{3mm}
+}

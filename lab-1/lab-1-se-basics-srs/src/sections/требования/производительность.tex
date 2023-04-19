@@ -1,0 +1,46 @@
+в этой секции представлены технические требования к производительности, определенные на основании ранее представленных зависимостей и тревований.
+
+повседневной нагрузкой будем считать обращение пятой части всех жителей региона амурская область к сервису за сутки. это по приблизительным рассчетам составляет $$700\,000\,/\,5\, /\,24\,/\,60\,\approx 100\;\text{запросов/час}.$$
+
+пиковой нагрузкой на систему считается превышение обычной нагрузки в 2 раза.
+%здесь видимо таблицу с атрибутами тогда вводить
+%в примере первом там через функцию как у нас
+%да зачем?
+
+\begin{enumerate}
+    \QualityReq{Повседневная нагрузка}{QR1}{Система должна выдерживать повседневную нагрузку неограниченное время.}
+    
+    \QualityReq{Время безотказной работы}{QR2}{Система должна находиться непрерывно в работоспособном состоянии не менее 95\% времени в течение года.}
+    
+    \QualityReq{Максимальное время ответа}{QR3}{Система должна давать давать ответ на запрос не дольше чем за 10 с. в условиях нахождения пользователя в амурской области и скорости интернета не менее 250 кбит/с.}
+    
+    \QualityReq{Время выбора и сортировки}{QR4}{База данных должна выполнять запрос на выбор и сортировку по определенным критериям за время не больше установленного времени ответа на запрос.}
+    
+    \QualityReq{Резервное копирование}{QR5}{База данных должна давать возможность делать резервные копии в любое время.}
+    
+    \QualityReq{Пиковая нагрузка}{QR6}{Система должна выдерживать круглосуточно пиковую нагрузку без значительных просадок в производительности в течение пары дней.}
+  %  \item [И ТД...]
+\end{enumerate}
+
+% \textit{[5.3.3 in IEEE] This subsection should specify both the static and the dynamic numerical requirements placed оп the soft-
+% ware or оп human interaction with the software as а whole. Static numerical requirements тау include:
+% \\
+% а) The ofterminals to be supported\\
+% Ь) Пе number of simultaneous users to be supported\\
+% с) Amount and of information to бе handled
+% \\
+% Static numerica1 requirements аге sometimes identifed under а separate section entit1ed capacity.
+% \\
+% Dynamic numerical requirements тау include, for example, the numbers of transactions and tasks and the
+% amount of data to pr(xessed within certain time periods for both normal and реак workload conditions.\\
+% All of these requirements should be stated in measurable terms.
+% \\
+% For ехатр1е,\\
+% ~~~95\% ofthe transactions shall be processed in less than 1 s
+% \\
+% rather than,\\
+% ~~~Ап operator shall пот have го waitfor the transaction го complete.
+% \\
+% NOTE—Numerical limits applied to опе specifc function ате normally specifed as part of the subparagraph
+% description of that function.
+% }
