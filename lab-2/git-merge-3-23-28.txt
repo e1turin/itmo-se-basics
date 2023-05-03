@@ -1,0 +1,38 @@
+#RESOLVED CONFLICTS
+cp -f ~/commits/commit23/* ./alphabet
+git add .
+git commit -m "r23"
+
+#24 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout "master"
+cp -f ~/commits/commit24/* ./alphabet
+git add .
+git commit -m "r24"
+
+git config --global "user.name" "kimiega"
+git config --global "user.email" "kimiega@hihihaha.sex"
+#25 user 2
+git checkout "gamma"
+cp -f ~/commits/commit25/* ./alphabet
+git add .
+git commit -m "r25"
+
+#26 user 2
+git checkout "beta"
+cp -f ~/commits/commit26/* ./alphabet
+git add .
+git commit -m "r26"
+
+#27 user 2
+git checkout "gamma"
+cp -f ~/commits/commit27/* ./alphabet
+git add .
+git commit -m "r27"
+
+#28 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout "master"
+git merge "gamma"

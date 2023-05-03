@@ -1,0 +1,4 @@
+#RESOLVED CONFLICTS
+#cp -f ~/commits/commit33/* ./alphabet
+git add .
+git commit -m "r33"

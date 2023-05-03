@@ -1,0 +1,231 @@
+svnadmin create svnRepo
+cd svnRepo
+
+export SVN_EDITOR=vim
+pathf=file:///home/studs/s335039/mispi/lab2/svnRepo
+
+svn mkdir ${pathf}/trunk ${pathf}/branches ${pathf}/tags -m "create repo structure" --username="kimiega"
+svn checkout ${pathf}/trunk workspace
+cd workspace
+
+#0
+cp -f ~/commits/commit0/* ./
+svn add *
+svn commit -m "r0" --username="kimiega"
+
+#1
+svn copy ${pathf}/trunk ${pathf}/branches/alpha -m "fork-alpha" --username="ivan"
+svn switch ${pathf}/branches/alpha
+cp -f ~/commits/commit1/* ./
+svn add *
+svn commit -m "r1" --username="ivan"
+
+#2
+svn copy ${pathf}/branches/alpha ${pathf}/branches/charlie -m "fork-charlie" --username="kimiega"
+svn switch ${pathf}/branches/charlie
+cp -f ~/commits/commit2/* ./
+svn add *
+svn commit -m "r2" --username="kimiega"
+
+#3 тут пустой ч делать
+svn copy ${pathf}/branches/charlie ${pathf}/branches/delta -m "fork-delta" --username="kimiega"
+svn switch ${pathf}/branches/delta
+cp -f ~/commits/commit3/* ./
+svn add *
+svn commit -m "r3" --username="kimiega"
+
+#4 
+cp -f ~/commits/commit4/* ./
+svn add *
+svn commit -m "r4" --username="kimiega"
+
+#5
+svn copy ${pathf}/branches/delta ${pathf}/branches/echo -m "fork-echo" --username="ivan"
+svn switch ${pathf}/branches/echo
+cp -f ~/commits/commit5/* ./
+svn add *
+svn commit -m "r5" --username="ivan"
+
+#6
+svn switch ${pathf}/branches/delta
+cp -f ~/commits/commit6/* ./
+svn add *
+svn commit -m "r6" --username="kimiega"
+
+#7
+svn switch ${pathf}/trunk
+cp -f ~/commits/commit7/* ./
+svn add *
+svn commit -m "r7" --username="kimiega"
+
+#8
+svn copy ${pathf}/trunk ${pathf}/branches/beta -m "fork-beta" --username="ivan"
+svn switch ${pathf}/branches/beta
+cp -f ~/commits/commit8/* ./
+svn add *
+svn commit -m "r8" --username="ivan"
+
+#9
+svn switch ${pathf}/branches/delta
+cp -f ~/commits/commit9/* ./
+svn add *
+svn commit -m "r9" --username="kimiega"
+
+#10
+svn switch ${pathf}/branches/alpha
+cp -f ~/commits/commit10/* ./
+svn add *
+svn commit -m "r10" --username="ivan"
+
+#11
+svn switch ${pathf}/trunk
+cp -f ~/commits/commit11/* ./
+svn add *
+svn commit -m "r11" --username="kimiega"
+
+#12
+svn switch ${pathf}/branches/charlie
+cp -f ~/commits/commit12/* ./
+svn add *
+svn commit -m "r12" --username="kimiega"
+
+#13
+svn switch ${pathf}/branches/delta
+cp -f ~/commits/commit13/* ./
+svn add *
+svn commit -m "r13" --username="kimiega"
+
+#14
+svn switch ${pathf}/branches/echo
+cp -f ~/commits/commit14/* ./
+svn add *
+svn commit -m "r14" --username="ivan"
+
+#15
+svn switch ${pathf}/branches/beta
+cp -f ~/commits/commit15/* ./
+svn add *
+svn commit -m "r15" --username="ivan"
+
+#16
+svn switch ${pathf}/branches/alpha
+cp -f ~/commits/commit16/* ./
+svn add *
+svn commit -m "r16" --username="ivan"
+
+#17
+svn switch ${pathf}/branches/charlie
+cp -f ~/commits/commit17/* ./
+svn add *
+svn commit -m "r17" --username="kimiega"
+
+#18
+svn switch ${pathf}/branches/alpha
+cp -f ~/commits/commit18/* ./
+svn add *
+svn commit -m "r18" --username="ivan"
+
+#19
+cp -f ~/commits/commit19/* ./
+svn add *
+svn commit -m "r19" --username="ivan"
+
+
+#20
+svn switch ${pathf}/branches/delta
+cp -f ~/commits/commit20/* ./
+svn add *
+svn commit -m "r20" --username="kimiega"
+
+#21
+svn switch ${pathf}/trunk
+svn merge ${pathf}/branches/delta ${pathf}/trunk --username="kimiega"
+#resolving conflicts
+svn commit -m "merged-delta-to-trunk" --username="kimiega"
+cp -f ~/commits/commit21/* ./
+svn add *
+svn commit -m "r21" --username="kimiega"
+
+#22
+svn switch ${pathf}/branches/alpha
+cp -f ~/commits/commit22/* ./
+svn add *
+svn commit -m "r22" --username="ivan"
+
+#23
+svn switch ${pathf}/branches/beta
+svn merge ${pathf}/branches/alpha ${pathf}/branches/beta --username="ivan"
+#resolving conflicts
+svn commit -m "merge-alpha-to-beta" --username="ivan"
+cp -f ~/commits/commit23/* ./
+svn add *
+svn commit -m "r23" --username="ivan"
+
+#24
+svn switch ${pathf}/trunk
+cp -f ~/commits/commit24/* ./
+svn add *
+svn commit -m "r24" --username="kimiega"
+
+
+#25
+svn switch ${pathf}/branches/echo
+cp -f ~/commits/commit25/* ./
+svn add *
+svn commit -m "r25" --username="ivan"
+
+#26
+svn switch ${pathf}/branches/beta
+cp -f ~/commits/commit26/* ./
+svn add *
+svn commit -m "r26" --username="ivan"
+
+#27
+svn switch ${pathf}/branches/echo
+cp -f ~/commits/commit27/* ./
+svn add *
+svn commit -m "r27" --username="ivan"
+
+#28
+svn switch ${pathf}/trunk
+svn merge ${pathf}/branches/echo ${pathf}/trunk --username="kimiega"
+#resolving conflicts
+svn commit -m "merged-echo-to-trunk" --username="kimiega"
+cp -f ~/commits/commit28/* ./
+svn add *
+svn commit -m "r28" --username="kimiega"
+
+#29
+svn switch ${pathf}/branches/charlie
+cp -f ~/commits/commit29/* ./
+svn add *
+svn commit -m "r29" --username="kimiega"
+
+#30
+svn switch ${pathf}/branches/charlie
+cp -f ~/commits/commit30/* ./
+svn add *
+svn commit -m "r30" --username="kimiega"
+
+#31
+svn switch ${pathf}/branches/beta
+svn merge ${pathf}/branches/charlie ${pathf}/branches/beta --username="ivan"
+#resolving conflicts
+svn commit -m "merge-charlie-to-beta" --username="ivan"
+cp -f ~/commits/commit31/* ./
+svn add *
+svn commit -m "r31" --username="ivan"
+
+#32
+cp -f ~/commits/commit32/* ./
+svn add *
+svn commit -m "r32" --username="ivan"
+
+
+#33
+svn switch ${pathf}/trunk
+svn merge ${pathf}/branches/beta ${pathf}/trunk --username="kimiega"
+#resolving conflicts
+svn commit -m "merge-beta-to-trunk" --username="kimiega"
+
+

@@ -1,0 +1,25 @@
+# RESOLVED MERGE CONFLICTS
+cp -f ~/commits/commit28/* ./alphabet
+git add .
+git commit -m "r28"
+
+#29 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout "charlie"
+cp -f ~/commits/commit29/* ./alphabet
+git add .
+git commit -m "r29"
+
+#30 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+cp -f ~/commits/commit30/* ./alphabet
+git add .
+git commit -m "r30"
+
+git config --global "user.name" "kimiega"
+git config --global "user.email" "kimiega@hihihaha.sex"
+#31 user 2
+git checkout beta
+git merge charlie

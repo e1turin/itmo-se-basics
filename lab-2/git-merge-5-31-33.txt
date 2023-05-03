@@ -1,0 +1,15 @@
+#RESOLVED CONFLICTS
+cp -f ~/commits/commit31/* ./alphabet
+git add .
+git commit -m "r31"
+
+#32 user 2
+cp -f ~/commits/commit32/* ./alphabet
+git add .
+git commit -m "r32"
+
+#33 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout master
+git merge beta

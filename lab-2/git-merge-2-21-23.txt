@@ -1,0 +1,16 @@
+# RESOLVED CONFLICTS
+cp -f ~/commits/commit21/* ./alphabet
+git add .
+git commit -m "r21"
+
+git config --global "user.name" "kimiega"
+git config --global "user.email" "kimiega@hihihaha.sex"
+#22 user 2
+git checkout "alpha"
+cp -f ~/commits/commit22/* ./alphabet
+git add .
+git commit -m "r22"
+
+#23 user 2
+git checkout "beta"
+git merge alpha

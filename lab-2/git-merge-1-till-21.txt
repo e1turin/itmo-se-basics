@@ -1,0 +1,173 @@
+git init gitRepo
+cd gitRepo
+mkdir alphabet
+
+#git config --global "user.name" "e1turin"
+#git config --global "user.email" "ivturnik2003@gmail.com"
+
+#git config --global "user.name" "kimiega"
+#git config --global "user.email" "kimiega@hihihaha.sex"
+
+#0 user1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+cp -f ~/commits/commit0/* ./alphabet/
+git add .
+git commit -m "r0"
+
+git config --global "user.name" "kimiega"
+git config --global "user.email" "kimiega@hihihaha.sex"
+#1 user2
+git checkout -b "alpha"
+cp -f ~/commits/commit1/* ./alphabet
+git add .
+git commit -m "r1"
+
+#2 user1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout -b "charlie"
+cp -f ~/commits/commit2/* ./alphabet
+git add .
+git commit -m "r2"
+
+#3 user1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout -b "delta"
+cp -f ~/commits/commit3/* ./alphabet
+git add .
+git commit --allow-empty -m "r3"
+
+#4 user1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+cp -f ~/commits/commit4/* ./alphabet
+git add .
+git commit -m "r4"
+
+git config --global "user.name" "kimiega"
+git config --global "user.email" "kimiega@hihihaha.sex"
+#5 user2
+git checkout -b "gamma"
+cp -f ~/commits/commit5/* ./alphabet
+git add .
+git commit -m "r5"
+
+#6 user1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout "delta"
+cp -f ~/commits/commit6/* ./alphabet
+git add .
+git commit -m "r6"
+
+#7 user1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout "master"
+cp -f ~/commits/commit7/* ./alphabet
+git add .
+git commit -m "r7"
+
+git config --global "user.name" "kimiega"
+git config --global "user.email" "kimiega@hihihaha.sex"
+#8 user2
+git checkout -b "beta"
+cp -f ~/commits/commit8/* ./alphabet
+git add .
+git commit -m "r8"
+
+#9 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout "delta"
+cp -f ~/commits/commit9/* ./alphabet
+git add .
+git commit -m "r9"
+
+git config --global "user.name" "kimiega"
+git config --global "user.email" "kimiega@hihihaha.sex"
+#10 user 2
+git checkout "alpha"
+cp -f ~/commits/commit10/* ./alphabet
+git add .
+git commit -m "r10"
+
+#11 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout  "master"
+cp -f ~/commits/commit11/* ./alphabet
+git add .
+git commit -m "r11"
+
+#12 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout  "charlie"
+cp -f ~/commits/commit12/* ./alphabet
+git add .
+git commit -m "r12"
+
+
+#13 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout  "delta"
+cp -f ~/commits/commit13/* ./alphabet
+git add .
+git commit -m "r13"
+
+git config --global "user.name" "kimiega"
+git config --global "user.email" "kimiega@hihihaha.sex"
+#14 user 2
+git checkout  "gamma"
+cp -f ~/commits/commit14/* ./alphabet
+git add .
+git commit -m "r14"
+
+#15 user 2
+git checkout  "beta"
+cp -f ~/commits/commit15/* ./alphabet
+git add .
+git commit -m "r15"
+
+#16 user 2
+git checkout  "alpha"
+cp -f ~/commits/commit16/* ./alphabet
+git add .
+git commit -m "r16"
+
+#17 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout  "charlie"
+cp -f ~/commits/commit17/* ./alphabet
+git add .
+git commit -m "r17"
+
+git config --global "user.name" "kimiega"
+git config --global "user.email" "kimiega@hihihaha.sex"
+#18 user 2
+git checkout  "alpha"
+cp -f ~/commits/commit18/* ./alphabet
+git add .
+git commit -m "r18"
+
+#19 user 2
+cp -f ~/commits/commit19/* ./alphabet
+git add .
+git commit -m "r19"
+
+#20 user 1
+git config --global "user.name" "e1turin"
+git config --global "user.email" "ivturnik2003@gmail.com"
+git checkout "delta"
+cp -f ~/commits/commit20/* ./alphabet
+git add .
+git commit -m "r20"
+
+#21 user 1
+git checkout "master"
+git merge "delta"
