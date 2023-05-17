@@ -1,0 +1,2 @@
+mainclass=src/main/com/example/weblab3/beans/ResultsBean.java
+

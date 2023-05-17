@@ -1,0 +1,291 @@
+<project name="webLAB-3" basedir="../" default="compile" 
+        xmlns:ant="http://www.w3.org/1999/XSL/Transform"
+        xmlns:antcontrib="http://ant-contrib.sourceforge.net">
+    <property file="build.properties"/>
+
+    <property name="build.dir"            value="${basedir}/build"/>
+    <property name="build.classes.dir"    value="${build.dir}/classes"/>
+    <property name="build.artifacts.dir"  value="${build.dir}/artifacts"/>
+    <property name="build.tmp.dir"        value="${build.dir}/tmp"/>
+    <property name="build.doc.dir"        value="${build.dir}/doc"/>
+    <property name="build.report.dir"     value="${build.dir}/report"/>
+    
+    <property name="lib.dir"              value="${basedir}/lib"/>
+    <property name="src.test.dir"         value="${basedir}/src/test"/>
+    <property name="src.main.dir"         value="${basedir}/src/main"/>
+    <property name="host.name"            value="se.ifmo.ru"/>
+    <property name="host.port"            value="2222"/>
+    <property name="javadoc.jar"          value="${build.artifacts.dir}/javadoc.jar"/>
+
+    <path id="classpathRuntime">
+        <fileset dir="${lib.dir}/runtime" includes="*.jar"/>
+    </path>
+
+    <path id="classpathTestRuntime">
+        <fileset dir="${lib.dir}/testruntime" includes="*.jar"/>
+    </path>
+    <path id = "libs">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="lib/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="lib/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${user.home}/.ant/lib"/>
+        <copy file="${lib.dir}/jsch-0.1.55.jar" todir="${user.home}/.ant/lib"/>
+        <copy file="${lib.dir}/bsf-all-3.1.jar" todir="${user.home}/.ant/lib"/>
+    </target>
+
+    <target name="compile" depends="init" description="компиляция исходного кода.">
+        <echo>Compiling...</echo>
+        <mkdir dir="${build.classes.dir}"/>
+        <javac includeantruntime="false" 
+               srcdir="${src.main.dir}" 
+               destdir="${build.classes.dir}">
+            <classpath refid="classpathRuntime"/>
+        </javac>
+        <echo>Done.</echo>
+    </target>
+
+    <target name="build" depends="compile" description="сборка jar-файла">
+        <echo>Building..</echo>
+        <mkdir dir="${build.artifacts.dir}"/>
+        <jar basedir="${build.classes.dir}" destfile="${build.artifacts.dir}/${ant.project.name}.jar">
+            <manifest>
+                <attribute name="Main-Class" value="${mainclass}"/>
+            </manifest>
+        </jar>
+        <echo>Done.</echo>
+    </target>
+
+    <target name="clean" description="очистка от всех сгенерированных файлов">
+        <echo>Cleaning...</echo>
+        <delete dir="${build.classes.dir}"/>
+        <delete dir="${build.tmp.dir}"/>
+        <echo>Done.</echo>
+    </target>
+
+    <target name="compile-test" depends="init">
+        <mkdir dir="${build.classes.dir}"/>
+        <javac includeantruntime="false" 
+               srcdir="${src.test.dir}"
+               destdir="${build.classes.dir}">
+            <classpath refid="classpathTestRuntime"/>
+        </javac>
+    </target>
+
+    <target name="test" depends="compile-test,build">
+        <junitlauncher>
+            <classpath refid="classpathTestRuntime"/>
+
+            <classpath>
+                <!-- the test classes themselves -->
+                <pathelement location="${build.classes.dir}"/>
+            </classpath>
+
+            <testclasses outputdir="${build.dir}">
+                <fileset dir="${build.classes.dir}"/>
+
+                <listener type="legacy-brief" sendSysOut="true"/>
+                <listener type="legacy-xml" sendSysErr="true" sendSysOut="true"/>
+            </testclasses>
+        </junitlauncher>
+    </target>
+
+   
+
+    <target name="scp" depends="init">
+        <fail message="-Dusername логин не указан">
+            <condition>
+                <not>
+                    <isset property="username"/>
+                </not>
+            </condition>
+        </fail>
+        <fail message="-Dpassword пароль не указан">
+            <condition>
+                <not>
+                    <isset property="password"/>
+                </not>
+            </condition>
+        </fail>
+        <echo message="Transmitting jar to server..."/>
+        <trycatch>
+            <try>
+                <scp file="${build.artifacts.dir}/${ant.project.name}.jar" 
+                     todir="${username}@${host.name}:"
+                     serverAliveIntervalSeconds="5" 
+                     port="${host.port}" 
+                     password="${password}" 
+                     trust="yes"/>
+                <echo message="Done"/>
+            </try>
+            <catch>
+                <echo message="Server is unavailable"/>
+            </catch>
+         </trycatch>
+    </target>
+
+    <target name="diff"
+            description="осуществляет проверку состояния рабочей копии, и, если изменения касаются классов, указанных в файле параметров выполняет commit в репозиторий svn.">
+        <loadfile property="params" srcFile="params.props"/>
+        <exec executable="svn" outputproperty="differences">
+            <arg value="st"/>
+            <arg value="${params}"/>
+        </exec>
+        <var name="commit.flag" unset="true"/>
+        <script language="javascript"><![CDATA[
+            var diffs = project.getProperty("differences");
+            var flag = diffs.length === 0  || !diffs.trim();
+            project.setProperty("commit.flag", !flag);
+        ]]></script>
+        <if>
+            <equals arg1="${commit.flag}" arg2="true"/>
+            <then>
+                <exec executable="svn">
+                    <arg value="add"/>
+                    <arg value="src/*"/>
+                </exec>
+                <exec executable="svn">
+                    <arg value="commit"/>
+                    <arg value="-m"/>
+                    <arg value="'Some changes appeared'"/>
+                    <arg value="--username=ant"/>
+                </exec>
+            </then>
+            <else>
+                <echo>Commit failed.</echo>
+            </else>
+        </if>
+    </target>
+
+    <target name="doc" depends="compile" >
+        <delete dir = "${build.doc.dir}"/>
+        <mkdir dir="${build.doc.dir}"/>
+
+        <mkdir dir="${build.tmp.dir}"/>
+        <checksum totalproperty="md5" todir="tmp/">
+            <fileset dir="${src.main.dir}"/>
+        </checksum>
+        <checksum algorithm="SHA-1" totalproperty="sha1" todir="tmp/">
+            <fileset dir="${src.main.dir}"/>
+        </checksum>
+
+
+        <javadoc destdir="${build.doc.dir}" classpathref="libs" sourcepath="${src.main.dir}/java"/>
+        <echo message="${src.main.dir}"/>
+
+        <jar destfile="${javadoc.jar}" basedir="${build.doc.dir}">
+            <manifest>
+                <attribute name="SHA-1" value="${sha1}"/>
+                <attribute name="MD5" value="${md5}"/>
+            </manifest>
+        </jar>
+        <echo file ="output.txt">
+            sha1=${sha1}
+        </echo>
+    </target>
+
+   <target name="history"
+           description="если проект не удаётся скомпилировать (цель compile), загружается предыдущая версия из репозитория svn. Операция повторяется до тех пор, пока проект не удастся собрать, либо не будет получена самая первая ревизия из репозитория. Если такая ревизия найдена, то формируется файл, содержащий результат операции diff для всех файлов, измёненных в ревизии, следующей непосредственно за последней работающей.">
+        <exec executable="svn" outputproperty="revision">
+            <arg value="info"/>
+            <arg value="--show-item"/>
+            <arg value="revision"/>
+        </exec>
+
+        <trycatch>
+            <try>
+                <antcall target="compile"/>
+            </try>
+            <catch>
+                <exec executable="svn">
+                    <arg value="update"/>
+                    <arg value="-r"/>
+                    <arg value="${revision}"/>
+                    <redirector outputproperty="svn.output"/>
+                </exec>
+                <var name="break.flag" unset="true"/>
+                <for param="i" begin="${revision}" end="0" step="-1">
+                    <sequential>
+                        <if>
+                            <not>
+                                <isset property="break.flag"/>
+                            </not>
+                            <then>
+                                <echo>Revision: ${revision}</echo>
+                                <trycatch>
+                                    <try>
+                                        <antcall target="compile"/>
+                                        <property name="prev_revision" value="0"/>
+                                        <script language="javascript">
+                                            var rev = project.getProperty("revision");
+                                            rev = rev  -1;
+                                            project.setProperty("prev_revision", rev);
+                                        </script>
+                                        <exec executable="svn">
+                                            <arg value="diff"/>
+                                            <arg value="-r"/>
+                                            <arg value="${prev_revision}:${revision}"/>
+                                            <arg value="--summarize"/>
+                                            <redirector output="${diff_file}"/>
+                                        </exec>
+                                        <property name="break.flag" value="true"/>
+                                    </try>
+                                    <catch>
+                                        <script language="javascript">
+                                            var rev = project.getProperty("revision");
+                                            rev = rev -1;
+                                            project.setProperty("revision", rev);
+                                        </script>
+                                        <exec executable="svn">
+                                            <arg value="update"/>
+                                            <arg value="-r"/>
+                                            <arg value="${revision}"/>
+                                            <arg value="--accept"/>
+                                            <arg value="theirs-full"/>
+                                            <redirector outputproperty="svn.output"/>
+                                        </exec>
+                                    </catch>
+                                </trycatch>
+                            </then>
+                        </if>
+                    </sequential>
+                </for>
+            </catch>
+        </trycatch>
+    </target>
+
+    <target name="report" depends="test">
+        <rmdir dir="${build.report.dir}"/>
+        <mkdir dir="${build.report.dir}"/>
+        <mkdir dir="${build.report.dir}/html"/>
+        <junitreport todir="${build.report.dir}">
+            <fileset dir="${build.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${build.report.dir}/html"/>
+        </junitreport>
+    </target>
+
+    <target name="native2ascii" 
+            description="преобразование native2ascii для копий файлов локализации (для тестирования сценария все строковые параметры необходимо вынести из классов в файлы локализации).">
+        <mkdir dir="${copy_localization_dir}"/>
+        <echo>Native2ASCII encoding...</echo>
+        <native2ascii encoding="EUCJIS" src="${localization_dir}" dest="${copy_localization_dir}" includes="**/*.loc"/>
+        <echo>Done.</echo>
+    </target>
+
+</project>

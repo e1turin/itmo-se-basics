@@ -1,0 +1,31 @@
+package com.example.weblab3.utils;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
+public class HitCheckerTest {
+
+    HitChecker checker;
+
+    @BeforeEach
+    public void beforeEach() {
+        checker = new HitChecker();
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/dataIsHit.csv",numLinesToSkip = 1)
+    public void isHitTest(double x, double y, double r, boolean expectedResult) {
+        boolean actualResult = checker.isHit(x, y, r);
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    public void isHitTest2() {
+        boolean actualResult = checker.isHit(0d, 0d, 5d);
+        Assertions.assertEquals(true, actualResult);
+    }
+
+
+}
